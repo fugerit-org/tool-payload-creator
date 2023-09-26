@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<freemarker-doc-process-config
+	xmlns="https://freemarkerdocprocess.fugerit.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://freemarkerdocprocess.fugerit.org https://www.fugerit.org/data/java/doc/xsd/freemarker-doc-process-1-0.xsd" > 	
+
+	<docHandlerConfig registerById="true">
+		<docHandler id="pdf" info="pdf" type="org.fugerit.java.doc.mod.fop.PdfFopTypeHandler">
+			<docHandlerCustomConfig charset="UTF-8" 
+				fop-config-mode="classloader" 
+				fop-config-classloader-path="fj-doc-tool-payload-creator/fop-config-pdfa.xml" 
+				pdf-a-mode="PDF/A-1b"/>
+		</docHandler>
+	</docHandlerConfig>
+
+	<docChain id="shared">
+		<chainStep stepType="config">
+			<config id="FJ_DOC_TOOL_PAYLOAD_CREATOR" version="2.3.32" path="/fj-doc-tool-payload-creator/template/"/>
+		</chainStep>
+		<chainStep stepType="function">
+			<function name="messageFormat" value="org.fugerit.java.doc.freemarker.fun.SimpleMessageFun"/>
+			<function name="sumLong" value="org.fugerit.java.doc.freemarker.fun.SimpleSumLongFun"/>
+		</chainStep>
+	</docChain>
+
+	<docChain id="payload" parent="shared">
+		<chainStep stepType="complex" template-path="payload.ftl" map-all="true"/>
+	</docChain>	
+
+</freemarker-doc-process-config>
