@@ -39,7 +39,7 @@ public class TestPayloadCreatorFacade {
 		
 	@Test
 	public void testCreatePdfAMax() {
-		boolean ok = this.testCreateWorker( DocConfig.TYPE_PDF , "test_pdf_a_100kb", 100*1024 );
+		boolean ok = this.testCreateWorker( DocConfig.FORMAT_PDF_A_1B , "test_pdf_a_100kb", 100*1024 );
 		Assert.assertTrue( ok );
 	}
 	

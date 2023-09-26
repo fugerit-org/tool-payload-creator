@@ -5,7 +5,7 @@
     xsi:schemaLocation="https://freemarkerdocprocess.fugerit.org https://www.fugerit.org/data/java/doc/xsd/freemarker-doc-process-1-0.xsd" > 	
 
 	<docHandlerConfig registerById="true">
-		<docHandler id="pdf" info="pdf" type="org.fugerit.java.doc.mod.fop.PdfFopTypeHandler">
+		<docHandler id="pdf-fop" info="pdf" type="org.fugerit.java.doc.mod.fop.PdfFopTypeHandler">
 			<docHandlerCustomConfig charset="UTF-8" 
 				fop-config-mode="classloader" 
 				fop-config-classloader-path="fj-doc-tool-payload-creator/fop-config-pdfa.xml" 

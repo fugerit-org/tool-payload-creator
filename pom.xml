@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.fugerit.java.universe</groupId>
 		<artifactId>fj-universe</artifactId>
-		<version>0.4.3</version>
+		<version>0.4.4</version>
 		<relativePath></relativePath>
 	</parent>
 
@@ -29,7 +29,7 @@
 	    <maven.compiler.source>${java-version-compliance}</maven.compiler.source>
 	    <maven.compiler.target>${java-version-compliance}</maven.compiler.target>	
 	    <maven.compiler.release>${java-version-compliance}</maven.compiler.release>	
-	    <fj-doc-version>3.0.9</fj-doc-version>	
+	    <fj-doc-version>3.1.0-SNAPSHOT</fj-doc-version>	
 	</properties>	
 
 	<dependencies>

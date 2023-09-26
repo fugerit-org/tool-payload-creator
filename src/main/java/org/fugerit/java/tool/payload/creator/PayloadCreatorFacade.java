@@ -29,7 +29,8 @@ public class PayloadCreatorFacade {
 	
 	private static void createHelper( String type, ByteArrayOutputStream baos, List<String> listFiller ) throws DocException {
 		DocTypeHandler handler = FACADE.getFacade().findHandler(type);
-		log.info( "handlers {}", FACADE.getFacade().handlers() );
+		log.info( "type : {}, listFiller.size() : {}", type, listFiller );
+		FACADE.getFacade().handlers().forEach( h -> log.info( "handler : {} -> {}", h.getKey(), h ) );
 		if ( handler == null ) {
 			throw new DocException( "No handler found : "+type );
 		}

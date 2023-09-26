@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- parent fj-universe version set to 0.4.4
+- fix to doc handler type resolving
+
 ## [0.1.0] - 2023-09-26
 
 ### Added
