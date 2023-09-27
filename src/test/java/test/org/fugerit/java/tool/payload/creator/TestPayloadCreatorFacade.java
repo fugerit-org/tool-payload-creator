@@ -21,13 +21,16 @@ public class TestPayloadCreatorFacade {
 		try {
 			File outputFileNormal = new File( "target/"+baseName+"."+type );
 			File outputFileBase64 = new File( "target/"+baseName+".txt" );
+			File outputFileBaseJson = new File( "target/"+baseName+".json" );
 			int max = requestedSize;
 			int min = max-1024;
 			PayloadResult result = PayloadCreatorFacade.create( max , DocConfig.TYPE_PDF );
 			int actualSize = result.getPayloadData().length;
 			log.info( "min : {}, max : {}, actual size : {}", min, max, actualSize );
 			FileIO.writeBytes( result.getPayloadData() , outputFileNormal );
-			FileIO.writeString( result.getBase64() , outputFileBase64 );
+			String base64 = result.getBase64();
+			FileIO.writeString( base64 , outputFileBase64 );
+			FileIO.writeString( "{\"content\":\""+base64+"\"}", outputFileBaseJson );
 			ok = ( min < actualSize && max > actualSize );
 		} catch (Exception | ExceptionInInitializerError e) {
 			String message  = "Error : "+e.getMessage();
@@ -39,7 +42,7 @@ public class TestPayloadCreatorFacade {
 		
 	@Test
 	public void testCreatePdfAMax() {
-		boolean ok = this.testCreateWorker( DocConfig.FORMAT_PDF_A_1B , "test_pdf_a_100kb", 100*1024 );
+		boolean ok = this.testCreateWorker( DocConfig.TYPE_PDF , "test_pdf_a_100kb", 100*1024 );
 		Assert.assertTrue( ok );
 	}
 	
