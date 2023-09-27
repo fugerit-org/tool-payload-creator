@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- command line tool version
+- quick start in readme
+
 ### Changed
 
 - parent fj-universe version set to 0.4.4

@@ -17,6 +17,7 @@ public class TestPayloadCreatorFacadeSimple {
 	public void testCreatePdfAMax() {
 		try {
 			PayloadResult result = PayloadCreatorFacade.create( 100*1024 , DocConfig.TYPE_PDF );
+			log.info( "requestedSize : {}, size : {}", result.getRequestedSize(), result.getPayloadData().length );
 			Assert.assertNotEquals( 0, result.getPayloadData().length );
 		} catch (Exception | ExceptionInInitializerError e) {
 			String message  = "Error : "+e.getMessage();

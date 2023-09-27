@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.fugerit.java.universe</groupId>
 		<artifactId>fj-universe</artifactId>
-		<version>0.4.4</version>
+		<version>0.4.5-rc.1</version>
 		<relativePath></relativePath>
 	</parent>
 
@@ -29,7 +29,6 @@
 	    <maven.compiler.source>${java-version-compliance}</maven.compiler.source>
 	    <maven.compiler.target>${java-version-compliance}</maven.compiler.target>	
 	    <maven.compiler.release>${java-version-compliance}</maven.compiler.release>	
-	    <fj-doc-version>3.1.0-rc.1</fj-doc-version>	
 	</properties>	
 
 	<dependencies>
@@ -98,7 +97,7 @@
 							<archive>
 								<manifest>
 									<addClasspath>true</addClasspath>
-									<mainClass>org.fugerit.java.tool.i18n.xml.I18NXmlHelper</mainClass>
+									<mainClass>org.fugerit.java.tool.payload.creator.PayloadCreatorTool</mainClass>
 								</manifest>
 							</archive>
 						</configuration>
