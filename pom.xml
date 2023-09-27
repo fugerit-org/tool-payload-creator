@@ -7,8 +7,8 @@
 
 	<parent>
 		<groupId>org.fugerit.java.universe</groupId>
-		<artifactId>fj-universe</artifactId>
-		<version>0.4.5-rc.1</version>
+		<artifactId>fj-universe-tool</artifactId>
+		<version>0.4.5-rc.2</version>
 		<relativePath></relativePath>
 	</parent>
 
@@ -26,9 +26,8 @@
 
 	<properties>
 	    <java-version-compliance>8</java-version-compliance>
-	    <maven.compiler.source>${java-version-compliance}</maven.compiler.source>
-	    <maven.compiler.target>${java-version-compliance}</maven.compiler.target>	
-	    <maven.compiler.release>${java-version-compliance}</maven.compiler.release>	
+	    <!-- ovverride parent pom -->
+	    <tool-main-class>org.fugerit.java.tool.payload.creator.PayloadCreatorTool</tool-main-class>
 	</properties>	
 
 	<dependencies>
@@ -36,117 +35,27 @@
 		<dependency>
 			<groupId>org.fugerit.java</groupId>
 			<artifactId>fj-doc-mod-fop</artifactId>
-		</dependency>	
-		
-		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-simple</artifactId>
-		    <scope>test</scope>
-		</dependency>		
-		
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
 		</dependency>		
 		
 	</dependencies>
+
+	<scm>
+		<connection>scm:git:git://github.com/fugerit-org/tool-payload-creator.git</connection>
+		<developerConnection>scm:git:ssh://github.com/fugerit-org/tool-payload-creator.git</developerConnection>
+		<url>https://github.com/fugerit-org/tool-payload-creator.git</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/fugerit-org/tool-payload-creator/issues</url>
+	</issueManagement>
 
 	<organization>
 		<url>https://www.fugerit.org</url>
 		<name>Fugerit</name>
 	</organization>
 	
-	<url>https://www.fugerit.org/</url>
-	
-	<profiles>
-
-		<profile>
-			<id>singlepackage</id>
-			<dependencies>
-				<dependency>
-					<groupId>org.apache.poi</groupId>
-					<artifactId>poi-ooxml</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.apache.logging.log4j</groupId>
-				    <artifactId>log4j-api</artifactId>
-				</dependency>
-				<dependency>
-				    <groupId>org.apache.logging.log4j</groupId>
-				    <artifactId>log4j-core</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.apache.logging.log4j</groupId>
-				    <artifactId>log4j-slf4j2-impl</artifactId>
-				</dependency>
-			</dependencies>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-jar-plugin</artifactId>
-						<version>3.3.0</version>
-						<configuration>
-							<archive>
-								<manifest>
-									<addClasspath>true</addClasspath>
-									<mainClass>org.fugerit.java.tool.payload.creator.PayloadCreatorTool</mainClass>
-								</manifest>
-							</archive>
-						</configuration>
-					</plugin>
-					<plugin>
-		                <groupId>org.codehaus.mojo</groupId>
-		                <artifactId>build-helper-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>add-resource</id>
-								<phase>generate-resources</phase>
-								<goals>
-									<goal>add-resource</goal>
-								</goals>
-								<configuration>
-									<resources>
-										<resource>
-											<directory>src/main/config</directory>
-											<targetPath>.</targetPath>
-											<includes>
-												<include>**/*.xml</include>
-											</includes>
-										</resource>
-									</resources>
-								</configuration>
-							</execution>
-						</executions>
-		            </plugin>		
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-shade-plugin</artifactId>
-						<version>3.5.1</version>
-						<executions>
-							<execution>
-								<phase>package</phase>
-								<goals>
-									<goal>shade</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<finalName>dist-${project.artifactId}-${project.version}</finalName>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
-	</profiles>
-	
+	<url>https://www.fugerit.org/</url>	
 	
 </project>

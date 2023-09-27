@@ -19,7 +19,7 @@ build :
 run : 
 
 ```
-java -jar target/dist-tool-payload-creator-X.X.X.jar \
+java -jar target/dist-tool-payload-creator-*.jar \
 	--target-size-byte 102400 \
 	--target-format pdf \
 	--output-file target/test.pdf
