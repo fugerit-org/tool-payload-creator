@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.fugerit.java.core.cfg.ConfigRuntimeException;
 import org.fugerit.java.core.cli.ArgUtils;
 import org.fugerit.java.core.io.FileIO;
 import org.fugerit.java.core.lang.helpers.StringUtils;
 import org.fugerit.java.doc.base.config.DocException;
+import org.fugerit.java.tool.util.ArgHelper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,22 +26,14 @@ public class PayloadCreatorTool {
 	public static final String ARG_CREATE_JSON = "create-json";
 	
 	private PayloadCreatorTool() {}
-
-	private static void checkRequired( String ...params ) {
-		for ( int k=0; k<params.length; k++ ) {
-			if ( StringUtils.isEmpty( params[k] ) ) {
-				throw new ConfigRuntimeException( "Required parameter "+params[k] );
-			}
-		}
-	}
 	
 	public static PayloadResult handle( Properties params ) {
 		PayloadResult result = null;
 		log.info( "params : {}", params );
+		ArgHelper.checkAllRequiredThrowRuntimeEx(params, ARG_TARGET_SIZE_BYTE, ARG_TARGET_FORMAT, ARG_OUTPUT_FILE);
 		String targetSize = params.getProperty( ARG_TARGET_SIZE_BYTE );
 		String targetFormat = params.getProperty( ARG_TARGET_FORMAT );
 		String outputFile = params.getProperty( ARG_OUTPUT_FILE );
-		checkRequired( targetSize, targetFormat, outputFile );
 		String createBase64 = params.getProperty( ARG_CREATE_BASE64 );
 		String createJson = params.getProperty( ARG_CREATE_JSON );
 		Integer reqSize = Integer.valueOf( targetSize );
