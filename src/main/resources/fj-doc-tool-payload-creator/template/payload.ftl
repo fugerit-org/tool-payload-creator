@@ -21,11 +21,6 @@
 	<!-- for pdf a handling use embedded font -->
     <info name="default-font-name">TitilliumWeb</info>
 	
-	<bookmark-tree>
-		<bookmark ref="top">Full document sample demo</bookmark>
-		<bookmark ref="sec_1">1. Sample tables</bookmark>
-		<bookmark ref="sec_2">2. Sample lists</bookmark>
-	</bookmark-tree>
   </metadata>
   
   <body>

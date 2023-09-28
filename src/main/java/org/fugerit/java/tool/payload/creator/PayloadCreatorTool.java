@@ -28,6 +28,7 @@ public class PayloadCreatorTool {
 	private PayloadCreatorTool() {}
 	
 	public static PayloadResult handle( Properties params ) {
+		long time = System.currentTimeMillis();
 		PayloadResult result = null;
 		log.info( "params : {}", params );
 		ArgHelper.checkAllRequiredThrowRuntimeEx(params, ARG_TARGET_SIZE_BYTE, ARG_TARGET_FORMAT, ARG_OUTPUT_FILE);
@@ -55,6 +56,8 @@ public class PayloadCreatorTool {
 		} catch (IOException | DocException e) {
 			log.error( "Generation error : "+e, e );
 		}
+		time = System.currentTimeMillis()-time;
+		log.info( "total time {}ms", time );
 		return result;
 	}
 	

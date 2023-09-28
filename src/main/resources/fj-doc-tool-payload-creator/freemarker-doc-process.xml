@@ -9,7 +9,8 @@
 			<docHandlerCustomConfig charset="UTF-8" 
 				fop-config-mode="classloader" 
 				fop-config-classloader-path="fj-doc-tool-payload-creator/fop-config-pdfa.xml" 
-				pdf-a-mode="PDF/A-1b"/>
+				pdf-a-mode="PDF/A-1b"
+				fop-suppress-events="1"/>
 		</docHandler>
 	</docHandlerConfig>
 

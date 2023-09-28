@@ -19,6 +19,10 @@ public class PayloadCreatorFacade {
 	
 	private PayloadCreatorFacade() {}
 
+	private static final String UNIT_K = "0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE ";
+	
+	private static final String FILLER = "0123456789ABCDE 0123456789ABCDE 0123456789ABCDE 0123456789ABCDE";
+	
 	// load the configuration or throw a ConfigRuntimeException
 	private static final FreemarkerDocProcessConfig FACADE = 
 			FreemarkerDocProcessConfigFacade.loadConfigSafe( "cl://fj-doc-tool-payload-creator/freemarker-doc-process.xml" );
@@ -29,7 +33,7 @@ public class PayloadCreatorFacade {
 	
 	private static void createHelper( String type, ByteArrayOutputStream baos, List<String> listFiller ) throws DocException {
 		DocTypeHandler handler = FACADE.getFacade().findHandler(type);
-		log.info( "type : {}, listFiller.size() : {}", type, listFiller );
+		log.info( "type : {}, listFiller.size() : {}", type, listFiller.size() );
 		FACADE.getFacade().handlers().forEach( h -> log.info( "handler : {} -> {}", h.getKey(), h ) );
 		if ( handler == null ) {
 			throw new DocException( "No handler found : "+type );
@@ -40,11 +44,25 @@ public class PayloadCreatorFacade {
 		 );
 	}
 	
+	private static int itFiller( int requestedSize, List<String> currentFiller, byte[] currentBuffer ) {
+		int calcDiff = (requestedSize-currentBuffer.length);
+		int itCount = 1;
+		while ( calcDiff > UNIT_K.length()*4 ) {
+			currentFiller.add( UNIT_K );
+			calcDiff = (requestedSize-currentBuffer.length-(UNIT_K.length()*itCount));
+			itCount++;
+		}
+		return calcDiff;
+	}
+	
 	public static PayloadResult create( int requestedSize, String type ) throws IOException, DocException {
 		byte[] currentData = new byte[0];
 		boolean goOn = true;
 		List<String> currentFiller = new ArrayList<>();
 		int count = 1;
+		for ( int a=0; a<((requestedSize/1024)-40); a++ ) {
+			currentFiller.add( UNIT_K );
+		}
 		while ( goOn ) {
 			try ( ByteArrayOutputStream buffer = new ByteArrayOutputStream() ) {
 				createHelper(type, buffer, currentFiller);
@@ -54,14 +72,15 @@ public class PayloadCreatorFacade {
 					goOn = false;
 				} else {
 					currentData = currentBuffer;
-					int calcIncrement = ((requestedSize-currentBuffer.length)/20 );
+					int calcDiff = itFiller(requestedSize, currentFiller, currentBuffer);
+					int calcIncrement = (calcDiff/80 );
 					if ( calcIncrement < 1 ) {
 						calcIncrement = 1;
 					}
 					log.info( "calc incremet {}", calcIncrement );
 					StringBuilder append = new StringBuilder();
 					for ( int k=0; k<calcIncrement; k++ ) {
-						append.append( " filler, filler," );
+						append.append( FILLER );
 						if ( k%10000==0 ) {
 							currentFiller.add( append.toString() );
 							append = new StringBuilder();
